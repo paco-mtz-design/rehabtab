@@ -7,18 +7,17 @@
 // logURL();
 
 //THIS CODE WORKS
-chrome.tabs.query(
-  {'active': true}, function(tabs) {
+chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 
-    var whitelist = ["codecademy.com",
-                    "coursera.com",
-                    "codewars.com",
-                    "codebabes.com"
+    var whitelist = ["www.codecademy.com",
+                    "www.coursera.com",
+                    "www.codewars.com",
+                    "www.codebabes.com"
                     ];
-    var blacklist = ["facebook.com",
+    var blacklist = ["www.facebook.com",
                     "twitter.com",
-                    "buzzfeed.com",
-                    "9gag.com"
+                    "www.buzzfeed.com",
+                    "www.9gag.com"
                     ];
     var url = window.location.hostname;
     var x = 0;
@@ -48,24 +47,39 @@ chrome.tabs.query(
     whitelistAdd();
     blacklistAdd();
 
-    // //Comparación de URL con array BLACKLIST
-    // for (i = 0; i < blacklist.length; i++) {
-    //         if (blacklist[i] == url) {
-    //                 alert("Hello World");
-    //                 //url = whitelist[i];
-    //         };
-    // }
+    // var myUrl = window.location.href;
+    // var myUrl = chrome.runtime.getURL;
+
+    myUrl = tabs[0].url;
+    myUrl = myUrl.split('/')[2];
+
+    // For debugging:
+    // alert(myUrl);
+    // console.log(tabs);
+
+
+    //Comparación de URL con array BLACKLIST
+    for (i = 0; i < blacklist.length; i++) {
+            if (blacklist[i] == myUrl) {
+                    url = whitelist[i];
+                    url = "http://" + url;
+                    chrome.tabs.update(tabs[0].id, {url: url});
+            };
+    };
+
+//if (myUrl == "facebook.com") {
+  //chrome.tabs.update(tabs[0].id, {url: "http://raidho.mx/"});
+//} else if (window.location.hostname !== "facebook.com") {
+//  console.log("BAD");
+  //chrome.tabs.update(tabs[0].id, {url: "http://codecademy.com/"});
+//};
 
 
 
-    //var myUrl = window.location.hostname;
 
-// if (window.location.hostname == "facebook.com") {
-//   chrome.tabs.update(tabs[0].id, {url: "http://raidho.mx/"});
-// } else if (window.location.hostname !== "facebook.com") {
-//   console.log("BAD");
-//   //chrome.tabs.update(tabs[0].id, {url: "http://codecademy.com/"});
-// };
+    // chrome.tabs.update(tabs[0].id, {url: "http://raidho.mx/"});
+
+
 
       // var urlTitle = document.createElement("h2");
       // urlTitle.innerHTML = chrome.tabs[0].id;
