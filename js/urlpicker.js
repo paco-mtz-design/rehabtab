@@ -17,7 +17,7 @@ chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
     var blacklist = ["www.facebook.com",
                     "twitter.com",
                     "www.buzzfeed.com",
-                    "www.9gag.com"
+                    "9gag.com"
                     ];
     var url = window.location.hostname;
     var x = 0;
